@@ -1,11 +1,11 @@
-// ▼▼▼▼▼ (1) كود مفاتيح الفايربيز (ده المفتاح الصح بتاعك من الصورة) ▼▼▼▼▼
+// ▼▼▼▼▼ (1) كود مفاتيح الفايربيز (النسخة الصح 100%) ▼▼▼▼▼
 const firebaseConfig = {
-  apiKey: "AIzaSyDdjViarXRaceWfWP0pLHlHIL1jfv8sy0",
+  apiKey: "AIzaSyDdFviarXRaceGWrFOpLHILHIlLjfvBsy0",
   authDomain: "stminascouts-def45.firebaseapp.com",
   projectId: "stminascouts-def45",
   storageBucket: "stminascouts-def45.firebasestorage.app",
   messagingSenderId: "859400563718",
-  appId: "1:859400563718:web:0bebe450b95d35fed22787",
+  appId: "1:859400563718:web:8bebeb450b95035fed2787",
   measurementId: "G-04176SW9XV"
 };
 
@@ -255,13 +255,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        // (النسخة دي فيها ترجمة لـ 'operation-not-allowed')
         function translateFirebaseError(errorCode) {
             switch (errorCode) {
                 case 'auth/email-already-in-use':
-                    return 'هذا البريد الإلكتروني مسجل بالفعل.';
+                    return 'هذا البريد الإلكترائي مسجل بالفعل.';
                 case 'auth/invalid-email':
-                    return 'البريد الإلكتروني غير صحيح.';
+                    return 'البريد الإلكترائي غير صحيح.';
                 case 'auth/weak-password':
                     return 'كلمة المرور ضعيفة جداً (يجب أن تكون 6 حروف على الأقل).';
                 case 'auth/user-not-found':
@@ -276,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'auth/operation-not-allowed':
                     return 'التسجيل بهذه الطريقة غير مفعّل. (خطأ من طرف مسؤول الموقع)';
                 default:
-                    console.error("Firebase Error: ", errorCode); // (ده هيظهرلنا الخطأ الحقيقي في الكونسول)
+                    console.error("Firebase Error: ", errorCode); 
                     return 'حدث خطأ غير متوقع. حاول مرة أخرى.';
             }
         }
