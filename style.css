@@ -23,7 +23,7 @@
     padding: 0;
 }
 
-/* ----- الخلفية ----- */
+/* ----- (الخلفية) ----- */
 body {
     font-family: 'Cairo', sans-serif;
     line-height: 1.7;
@@ -35,6 +35,7 @@ body {
     background-attachment: fixed; 
     direction: rtl; 
 }
+/* ------------------------------------- */
 
 .container {
     max-width: 1100px;
@@ -91,24 +92,21 @@ body {
     background-color: rgba(255, 195, 0, 0.1);
 }
 
-/* ----- (النافبار الذكي: إخفاء وإظهار) ----- */
-.nav-links .user-welcome,
-.nav-links .logout-btn {
-    display: none; /* (مخفيين في البداية) */
+/* --- (التعديل الجديد هنا) --- */
+/* تلوين رسالة الترحيب "أهلاً يا يوسف" باللون الذهبي */
+#user-welcome-li {
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    display: flex; /* (JS بيتحكم في ده، بس بنحطه للتأكيد) */
     align-items: center;
 }
-.nav-links .user-welcome span {
-    color: var(--primary-color);
-    font-weight: 700;
-    margin-left: 1rem;
+
+#user-welcome-li .user-welcome-text {
+    color: var(--primary-color); /* <-- (اللون الذهبي) */
+    text-shadow: 0 0 10px rgba(255, 195, 0, 0.5); /* توهج للنص */
 }
-.nav-links .logout-btn a {
-    color: #ff6b6b;
-    cursor: pointer;
-}
-.nav-links .logout-btn a:hover {
-    background: rgba(255, 107, 107, 0.1);
-}
+/* ------------------------ */
+
 
 .btn {
     display: inline-block;
@@ -201,9 +199,7 @@ body {
     background: transparent; 
 }
 .section.bg-alt { 
-    background: rgba(0, 0, 0, 0.2); 
-    border-top: 1px solid var(--glass-border);
-    border-bottom: 1px solid var(--glass-border);
+    background: transparent; 
 }
 
 .section h2 {
@@ -332,12 +328,23 @@ body {
     color: var(--primary-color);
 }
 
-/* ---- 7. صفحة التسجيل (register.html) ---- */
+/* ---- 7. الفوتر (Footer) ---- */
+.footer {
+    background: transparent; 
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+
+/* ---- 8. صفحة التسجيل (register.html) ---- */
 .register-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 .form-container {
     width: 100%;
@@ -363,7 +370,6 @@ body {
     background: var(--primary-color);
     color: #000;
     border-color: var(--primary-color);
-    text-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 .tab-btn:first-child {
     border-radius: 0 10px 10px 0;
@@ -373,16 +379,16 @@ body {
 }
 
 .form-content {
-    display: none; /* مخفي بشكل افتراضي */
+    display: none; 
 }
 .form-content.active {
-    display: block; /* ظاهر لو نشط */
+    display: block; 
 }
 .form-content .glass-card {
-    padding: 2rem;
+    padding: 2.5rem;
 }
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 .form-group label {
     display: block;
@@ -399,122 +405,75 @@ body {
     color: var(--text-primary);
     font-family: 'Cairo', sans-serif;
     font-size: 1rem;
-    text-align: right; /* للكتابة بالعربي */
+    transition: all 0.3s ease;
 }
 .form-group input:focus {
     outline: none;
     border-color: var(--primary-color);
+    background: rgba(0,0,0,0.3);
 }
 .form-content .btn {
     width: 100%;
+    margin-top: 1rem;
 }
 
-/* (تصليح زرار جوجل) */
-.btn-google {
-    width: 100%;
-    padding: 12px;
-    background: #fff;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-.btn-google:hover {
-    background: #f4f4f4;
-}
-.btn-google i { /* (استخدام أيقونة بدل صورة) */
-    font-size: 1.2rem;
-    color: #DB4437; /* لون جوجل */
-    margin-left: 10px;
-}
-
-.divider {
-    text-align: center;
-    color: var(--text-secondary);
-    margin: 1.5rem 0;
-    font-weight: 600;
-}
 .forgot-password {
     display: block;
+    text-align: left;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 .forgot-password:hover {
     color: var(--primary-color);
+    text-decoration: underline;
 }
 
-/* رسايل الخطأ والنجاح */
 .message-box {
     padding: 12px;
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     font-weight: 600;
-    display: none; /* مخفية */
+    display: none; 
 }
 .message-box.error {
-    color: #ff6b6b;
     background: rgba(255, 107, 107, 0.1);
     border: 1px solid #ff6b6b;
+    color: #ff6b6b;
 }
 .message-box.success {
-    color: #2ecc71;
-    background: rgba(46, 204, 113, 0.1);
-    border: 1px solid #2ecc71;
+    background: rgba(39, 174, 96, 0.1);
+    border: 1px solid #27ae60;
+    color: #27ae60;
 }
 
-/* (تصليح جدار الحماية) */
-/* (الكود ده هو اللي هيصلح مشكلة ظهور المحتوى) */
-#auth-wall, #protected-content {
-    display: none; /* (الاتنين مخفيين بشكل افتراضي) */
-}
 
+/* ---- 9. الصفحات المحمية ---- */
 .auth-wall {
-    /* (شيلنا "display: none" المكررة) */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 60vh;
+    display: none; 
 }
+#protected-content {
+    display: none;
+}
+
 .auth-wall .glass-card {
-    max-width: 500px;
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+    border-color: var(--primary-color);
 }
 .auth-wall h2 {
     color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-.auth-wall p {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
 }
 .auth-wall .btn {
-    margin: 5px;
+    margin-top: 1.5rem;
 }
 
 
-/* ---- 8. الفوتر (Footer) ---- */
-.footer {
-    background: transparent; 
-    color: var(--text-secondary);
-    text-align: center;
-    padding: 2rem 0;
-    margin-top: 3rem;
-    border-top: 1px solid var(--glass-border);
-}
-
-/* ---- تصميم الموبايل (Responsive) ---- */
+/* ---- 10. تصميم الموبايل (Responsive) ---- */
 @media (max-width: 992px) {
     .navbar .container {
         flex-wrap: wrap;
@@ -546,6 +505,15 @@ body {
         width: 100%;
     }
     
+    /* --- (تعديل الترحيب في الموبايل) --- */
+    #user-welcome-li {
+        padding: 1rem 0; /* زيها زي باقي اللينكات */
+        width: 100%;
+        text-align: center;
+        font-size: 1.1rem; /* نكبرها شوية في المنيو */
+    }
+    /* ------------------------------ */
+
     .header-socials {
         order: 2; 
         margin-right: 0; 
@@ -561,15 +529,18 @@ body {
     .section h2 {
         font-size: 2.2rem;
     }
-
-    .nav-links .user-welcome {
-        justify-content: center;
-    }
 }
 
 @media (max-width: 480px) {
     .header-socials a {
         font-size: 1.1rem;
         margin-left: 0.7rem;
+    }
+    
+    .glass-card {
+        padding: 1.5rem;
+    }
+    .form-content .glass-card {
+        padding: 2rem 1.5rem;
     }
 }

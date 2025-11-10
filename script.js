@@ -10,10 +10,10 @@ const firebaseConfig = {
 };
 
 // تهيئة الفايربيز
+// (شيلنا كود جوجل من هنا)
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth(); // لعمليات التسجيل والدخول
 const db = firebase.firestore(); // لعمليات تخزين البيانات (زي الاسم)
-const googleProvider = new firebase.auth.GoogleAuthProvider(); // لعمليات التسجيل بجوجل
 
 // ▲▲▲▲▲ (1) كود مفاتيح الفايربيز (انتهى) ▲▲▲▲▲
 
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. جلب اسم المستخدم وعرضه (مع التأكد إننا مش في صفحة التسجيل)
             if (welcomeMsg && document.body.id !== 'register-page') {
                 const welcomeText = welcomeMsg.querySelector('span');
+                // (هنا بنجيب الاسم من الداتابيز أو من البروفايل)
                 if (user.displayName) {
                     welcomeText.textContent = 'أهلاً يا ' + user.displayName.split(' ')[0]; 
                 } else {
@@ -60,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         } else {
                             welcomeText.textContent = 'أهلاً بك';
                         }
+                    }).catch(() => {
+                        welcomeText.textContent = 'أهلاً بك';
                     });
                 }
             }
@@ -88,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- (ج) كود زرار تسجيل الخروج ---
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
+        // (استخدام 'click' بدل 'addEventListener' لضمان عدم التكرار)
+        logoutBtn.onclick = () => {
             if (confirm('هل أنت متأكد أنك تريد تسجيل الخروج؟')) {
                 auth.signOut().then(() => {
                     window.location.href = 'index.html'; 
@@ -96,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('خطأ أثناء تسجيل الخروج:', error);
                 });
             }
-        });
+        };
     }
 
 // ▲▲▲▲▲ (2) العقل الذكي (انتهى) ▲▲▲▲▲
@@ -143,10 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then((userCredential) => {
                         const user = userCredential.user;
                         
+                        // (تحديث اسم المستخدم في البروفايل)
                         user.updateProfile({
                             displayName: name 
                         });
 
+                        // (تخزين الاسم في الداتابيز)
                         db.collection('users').doc(user.uid).set({
                             name: name,
                             email: email,
@@ -188,36 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             });
         }
-
-        const googleBtnSignup = document.getElementById('google-signin-btn-signup');
-        const googleBtnLogin = document.getElementById('google-signin-btn-login');
         
-        const signInWithGoogle = () => {
-            hideMessages();
-            auth.signInWithPopup(googleProvider)
-                .then((result) => {
-                    const user = result.user;
-                    if (result.additionalUserInfo.isNewUser) {
-                        db.collection('users').doc(user.uid).set({
-                            name: user.displayName,
-                            email: user.email,
-                            joinedAt: new Date()
-                        });
-                    }
-                    const messageElement = loginForm.classList.contains('active') ? loginMessage : signupMessage;
-                    showMessage(messageElement, 'أهلاً بك يا ' + user.displayName.split(' ')[0] + '! جاري نقلك...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1500);
-                })
-                .catch((error) => {
-                    const messageElement = loginForm.classList.contains('active') ? loginMessage : signupMessage;
-                    showMessage(messageElement, translateFirebaseError(error.code), 'error');
-                });
-        };
-        
-        if (googleBtnSignup) googleBtnSignup.addEventListener('click', signInWithGoogle);
-        if (googleBtnLogin) googleBtnLogin.addEventListener('click', signInWithGoogle);
+        // --- (تم شيل كل أكواد جوجل من هنا) ---
 
         const forgotPasswordLink = document.getElementById('forgot-password-link');
         if(forgotPasswordLink) {
@@ -258,9 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function translateFirebaseError(errorCode) {
             switch (errorCode) {
                 case 'auth/email-already-in-use':
-                    return 'هذا البريد الإلكترائي مسجل بالفعل.';
+                    return 'هذا البريد الإلكتروني مسجل بالفعل.';
                 case 'auth/invalid-email':
-                    return 'البريد الإلكترائي غير صحيح.';
+                    return 'البريد الإلكتروني غير صحيح.';
                 case 'auth/weak-password':
                     return 'كلمة المرور ضعيفة جداً (يجب أن تكون 6 حروف على الأقل).';
                 case 'auth/user-not-found':
@@ -270,8 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return 'كلمة المرور غير صحيحة.';
                 case 'auth/too-many-requests':
                     return 'لقد حاولت الدخول مرات كثيرة. حاول مرة أخرى لاحقاً.';
-                case 'auth/popup-closed-by-user':
-                    return 'تم إلغاء التسجيل بجوجل.';
+                // (شيلنا أكواد جوجل)
                 case 'auth/operation-not-allowed':
                     return 'التسجيل بهذه الطريقة غير مفعّل. (خطأ من طرف مسؤول الموقع)';
                 default:
